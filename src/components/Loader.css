@@ -1,0 +1,144 @@
+/* ── Loader — Full-screen retro preloader ── */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--clr-charcoal);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+/* Grid wrapper to stack children */
+.loader__inner {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    place-items: center;
+    gap: 2.5rem;
+    z-index: 2;
+}
+
+/* Badge / monogram stamp */
+.loader__badge {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--clr-orange);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--clr-orange);
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 0 6px var(--clr-charcoal), 0 0 0 8px var(--clr-orange-faded);
+}
+
+/* Progress bar track */
+.loader__track {
+    width: 260px;
+    height: 4px;
+    background: var(--clr-charcoal-light);
+    border: 1px solid rgba(212, 132, 42, 0.15);
+    overflow: hidden;
+}
+
+.loader__bar {
+    width: 0%;
+    height: 100%;
+    background: var(--clr-orange);
+    transform-origin: left;
+}
+
+/* Percentage counter */
+.loader__counter {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--clr-orange-faded);
+    text-transform: uppercase;
+}
+
+/* Loading text */
+.loader__text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 225, 0.25);
+}
+
+/* Decorative corner marks */
+.loader__corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--clr-orange-faded);
+    border-style: solid;
+    opacity: 0.2;
+}
+
+.loader__corner--tl {
+    top: 2rem;
+    left: 2rem;
+    border-width: 2px 0 0 2px;
+}
+
+.loader__corner--tr {
+    top: 2rem;
+    right: 2rem;
+    border-width: 2px 2px 0 0;
+}
+
+.loader__corner--bl {
+    bottom: 2rem;
+    left: 2rem;
+    border-width: 0 0 2px 2px;
+}
+
+.loader__corner--br {
+    bottom: 2rem;
+    right: 2rem;
+    border-width: 0 2px 2px 0;
+}
+
+/* Background decorative ring */
+.loader__ring {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgba(212, 132, 42, 0.06);
+    border-radius: 50%;
+}
+
+.loader__ring--lg {
+    width: 550px;
+    height: 550px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .loader__badge {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .loader__track {
+        width: 180px;
+    }
+
+    .loader__corner {
+        display: none;
+    }
+
+    .loader__ring {
+        width: 280px;
+        height: 280px;
+    }
+
+    .loader__ring--lg {
+        width: 400px;
+        height: 400px;
+    }
+}

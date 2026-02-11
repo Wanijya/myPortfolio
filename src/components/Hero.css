@@ -1,0 +1,185 @@
+/* Hero Section — Grid-based layout, minimal position */
+
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "main";
+    place-items: center;
+    background: var(--clr-cream);
+    overflow: hidden;
+    padding-top: 5rem;
+}
+
+/* All hero children stack in the same grid cell */
+.hero>* {
+    grid-area: main;
+}
+
+.hero__content {
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+    z-index: 2;
+}
+
+/* Subtitle */
+.hero__sub {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+    margin-bottom: 1.5rem;
+}
+
+.hero__dash {
+    color: var(--clr-charcoal);
+    margin-right: 0.5rem;
+}
+
+/* Headline */
+.hero__headline h1 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+}
+
+.hero__line {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 1;
+    color: var(--clr-charcoal);
+    display: block;
+}
+
+.hero__line--accent {
+    color: var(--clr-orange);
+    -webkit-text-stroke: 1px var(--clr-charcoal);
+    text-shadow: 2px 2px 0 rgba(26, 26, 26, 0.1);
+}
+
+/* Tagline */
+.hero__tagline {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-charcoal-light);
+    margin-top: 2rem;
+    line-height: 1.8;
+}
+
+/* Scroll hint — placed at bottom of hero via grid alignment */
+.hero__scroll-hint {
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+}
+
+.hero__scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-charcoal-light);
+}
+
+.hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: var(--clr-charcoal);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scaleY(0.5);
+        opacity: 0.3;
+    }
+}
+
+/* Decorative stamps — placed via grid alignment instead of position:absolute */
+.hero__stamp {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+    border: 1px solid var(--clr-orange);
+    padding: 0.3rem 0.8rem;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.hero__stamp--1 {
+    align-self: start;
+    justify-self: end;
+    margin-top: 20%;
+    margin-right: 8%;
+    transform: rotate(12deg);
+}
+
+.hero__stamp--2 {
+    align-self: end;
+    justify-self: start;
+    margin-bottom: 20%;
+    margin-left: 6%;
+    transform: rotate(-8deg);
+    font-size: 1.5rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.hero__circle {
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--clr-orange-faded);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 0;
+    align-self: start;
+    justify-self: start;
+    margin-top: 15%;
+    margin-left: 10%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero__stamp {
+        display: none;
+    }
+
+    .hero__circle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .hero__tagline {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero__circle {
+        display: none;
+    }
+
+    .hero__sub {
+        font-size: 0.8rem;
+    }
+}

@@ -1,0 +1,176 @@
+/* About Section — Grid-based layout, minimal position */
+
+.about {
+    background: var(--clr-beige);
+}
+
+.about__header {
+    margin-bottom: 3rem;
+}
+
+.about__label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+}
+
+.about__title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--clr-charcoal);
+    margin-top: 0.5rem;
+}
+
+/* Paper — uses grid stacking for tape and stamps */
+.about__paper {
+    display: grid;
+    grid-template-areas: "paper";
+    background: var(--clr-warm-white);
+    border: 1px solid rgba(26, 26, 26, 0.15);
+    padding: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow:
+        0 4px 20px rgba(26, 26, 26, 0.08),
+        inset 0 0 80px rgba(0, 0, 0, 0.02);
+    transform: rotate(-0.5deg);
+}
+
+.about__paper>* {
+    grid-area: paper;
+}
+
+.about__paper-inner {
+    z-index: 2;
+}
+
+/* Tape strips — grid-stacked overlays instead of position:absolute */
+.about__tape {
+    width: 80px;
+    height: 25px;
+    background: rgba(212, 132, 42, 0.25);
+    z-index: 3;
+    margin-top: -12px;
+}
+
+.about__tape--left {
+    justify-self: start;
+    margin-left: 30px;
+    transform: rotate(-5deg);
+}
+
+.about__tape--right {
+    justify-self: end;
+    margin-right: 30px;
+    transform: rotate(3deg);
+}
+
+/* Text */
+.about__text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--clr-charcoal);
+    margin-bottom: 1.5rem;
+}
+
+.about__text--secondary {
+    color: var(--clr-charcoal-light);
+    font-size: 0.95rem;
+}
+
+/* Meta stats */
+.about__meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--clr-dusty);
+}
+
+.about__meta-item {
+    text-align: center;
+}
+
+.about__meta-num {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--clr-orange);
+    display: block;
+}
+
+.about__meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-charcoal-light);
+}
+
+/* Stamps — grid-stacked overlays */
+.about__stamp {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 2px solid var(--clr-orange);
+    color: var(--clr-orange);
+    opacity: 0.6;
+    z-index: 3;
+    width: fit-content;
+    height: fit-content;
+}
+
+.about__stamp--1 {
+    align-self: end;
+    justify-self: end;
+    margin-bottom: -15px;
+    margin-right: 20px;
+    transform: rotate(6deg);
+}
+
+.about__stamp--2 {
+    align-self: center;
+    justify-self: start;
+    margin-left: -85px;
+    transform: rotate(-90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about__paper {
+        padding: 2rem 1.5rem;
+        transform: none;
+    }
+
+    .about__meta {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .about__meta-item {
+        text-align: left;
+    }
+
+    .about__stamp--2 {
+        display: none;
+    }
+
+    .about__tape {
+        width: 60px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about__paper {
+        padding: 1.5rem 1rem;
+    }
+
+    .about__text {
+        font-size: 0.95rem;
+    }
+}

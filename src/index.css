@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── Design Tokens ── */
+:root {
+  --clr-charcoal: #1a1a1a;
+  --clr-charcoal-light: #2e2e2e;
+  --clr-cream: #f5f0e1;
+  --clr-orange: #d4842a;
+  --clr-orange-light: #e8a84c;
+  --clr-orange-faded: #f0c78e;
+  --clr-beige: #e8dcc8;
+  --clr-warm-white: #faf6ed;
+  --clr-brown: #6b4226;
+  --clr-dusty: #c4a97d;
+
+  --font-heading: 'Bebas Neue', sans-serif;
+  --font-body: 'Special Elite', cursive;
+  --font-mono: 'Courier Prime', monospace;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--clr-cream);
+  color: var(--clr-charcoal);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/*
+  REMOVED: body::after global noise overlay
+  REMOVED: .noise-bg per-element pseudo-element overlays
+  
+  Both created GPU compositing layers that consumed 400-600MB memory.
+  Noise texture is now baked into section backgrounds via var(--noise-texture).
+*/
+
+/* ── Typography ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Utility ── */
+.section-padding {
+  padding: 6rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Retro Button ── */
+.retro-btn {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--clr-orange);
+  color: var(--clr-cream);
+  border: 2px solid var(--clr-charcoal);
+  padding: 0.65rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 3px 3px 0 var(--clr-charcoal);
+}
+
+.retro-btn:hover {
+  background: var(--clr-charcoal);
+  color: var(--clr-orange);
+  box-shadow: 5px 5px 0 var(--clr-orange);
+  transform: translate(-2px, -2px);
+}
+
+/* ── Grunge Edge Effect ── */
+.grunge-edge {
+  border: 2px solid var(--clr-charcoal);
+  box-shadow: 4px 4px 0 var(--clr-charcoal-light);
+}
+
+/* ── Scrollbar Styling ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--clr-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-orange);
+  border: 1px solid var(--clr-charcoal);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .section-padding {
+    padding: 4rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  .section-padding {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .section-padding {
+    padding: 2.5rem 0.75rem;
+  }
+}

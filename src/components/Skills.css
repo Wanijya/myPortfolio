@@ -1,0 +1,156 @@
+/* Skills Section — Grid-based layout, minimal position */
+
+.skills {
+    background: var(--clr-cream);
+    overflow: hidden;
+}
+
+.skills__header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.skills__label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+}
+
+.skills__title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--clr-charcoal);
+    margin-top: 0.5rem;
+}
+
+/* Grid */
+.skills__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 750px;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+/* Poster card — uses grid stacking for inner border overlay */
+.skills__poster {
+    display: grid;
+    grid-template-areas: "poster";
+    background: var(--clr-warm-white);
+    border: 2px solid var(--clr-charcoal);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transform: rotate(var(--rotate, 0deg));
+    cursor: pointer;
+    box-shadow: 4px 4px 0 rgba(26, 26, 26, 0.2);
+    transition: background 0.2s;
+}
+
+.skills__poster>* {
+    grid-area: poster;
+}
+
+.skills__poster:hover {
+    background: var(--clr-charcoal);
+}
+
+.skills__poster:hover .skills__poster-name {
+    color: var(--clr-orange);
+}
+
+.skills__poster:hover .skills__poster-icon {
+    color: var(--clr-orange);
+}
+
+.skills__poster:hover .skills__poster-level {
+    color: var(--clr-cream);
+}
+
+.skills__poster-inner {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skills__poster-icon {
+    font-size: 1.5rem;
+    color: var(--clr-orange);
+    display: block;
+    margin-bottom: 0.8rem;
+    transition: color 0.2s;
+}
+
+.skills__poster-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--clr-charcoal);
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+}
+
+.skills__poster-level {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-charcoal-light);
+    margin-top: 0.5rem;
+    display: block;
+    transition: color 0.2s;
+}
+
+/* Dashed inner border — grid-stacked overlay instead of position:absolute */
+.skills__poster-border {
+    border: 1px dashed rgba(26, 26, 26, 0.2);
+    margin: -4px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Floating badges — kept as position:absolute (decorative, scattered placement) */
+.skills__badge {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border: 2px solid var(--clr-orange);
+    color: var(--clr-orange);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .skills__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .skills__badge {
+        display: none;
+    }
+
+    .skills__poster {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+
+    .skills__poster {
+        padding: 1.2rem 0.8rem;
+    }
+
+    .skills__poster-name {
+        font-size: 1.1rem;
+    }
+}

@@ -1,0 +1,228 @@
+/* Contact Section — Grid-based layout, minimal position */
+
+.contact {
+    background: var(--clr-beige);
+}
+
+.contact__header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact__label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+}
+
+.contact__title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--clr-charcoal);
+    margin-top: 0.5rem;
+}
+
+.contact__subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-charcoal-light);
+    margin-top: 0.8rem;
+}
+
+/* Grid layout */
+.contact__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* Form — uses grid stacking for stamp overlay */
+.contact__form {
+    display: grid;
+    grid-template-areas: "form";
+    background: var(--clr-warm-white);
+    border: 2px solid var(--clr-charcoal);
+    padding: 2.5rem;
+    box-shadow: 5px 5px 0 rgba(26, 26, 26, 0.15);
+}
+
+.contact__form>* {
+    grid-area: form;
+}
+
+.contact__form-fields {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.contact__field {
+    margin-bottom: 1.5rem;
+}
+
+.contact__field-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-charcoal);
+    margin-bottom: 0.5rem;
+}
+
+.contact__input {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.8rem;
+    background: var(--clr-cream);
+    border: 1px solid var(--clr-charcoal);
+    color: var(--clr-charcoal);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact__input::placeholder {
+    color: var(--clr-dusty);
+    font-style: italic;
+}
+
+.contact__input:focus {
+    border-color: var(--clr-orange);
+    box-shadow: 3px 3px 0 var(--clr-orange);
+}
+
+.contact__textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact__submit {
+    width: 100%;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    padding: 0.8rem;
+}
+
+/* Form stamp — grid-stacked overlay */
+.contact__form-stamp {
+    align-self: start;
+    justify-self: end;
+    margin-top: -12px;
+    margin-right: 20px;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--clr-orange);
+    border: 2px solid var(--clr-orange);
+    padding: 0.2rem 0.5rem;
+    background: var(--clr-warm-white);
+    transform: rotate(4deg);
+    z-index: 3;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* Contact info */
+.contact__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact__info-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--clr-dusty);
+}
+
+.contact__info-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.contact__info-value {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-charcoal);
+}
+
+.contact__info-value:hover {
+    color: var(--clr-orange);
+}
+
+/* Socials */
+.contact__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.contact__social-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-charcoal);
+    border: 1px solid var(--clr-charcoal);
+    padding: 0.25rem 0.6rem;
+    transition: all 0.2s;
+}
+
+.contact__social-link:hover {
+    background: var(--clr-charcoal);
+    color: var(--clr-orange);
+}
+
+/* Info stamp */
+.contact__info-stamp {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-orange);
+    border: 2px solid var(--clr-orange);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    transform: rotate(-3deg);
+    margin-top: 1rem;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact__form {
+        padding: 1.5rem;
+    }
+
+    .contact__info-stamp {
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact__form {
+        padding: 1.2rem;
+    }
+
+    .contact__input {
+        font-size: 0.85rem;
+    }
+}
