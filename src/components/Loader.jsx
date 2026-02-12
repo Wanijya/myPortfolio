@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import "./Loader.css";
 
-export default function Loader({ onComplete }) {
+const Loader = ({ onComplete }) => {
   const loaderRef = useRef(null);
   const barRef = useRef(null);
   const counterRef = useRef(null);
@@ -134,4 +134,6 @@ export default function Loader({ onComplete }) {
       </div>
     </div>
   );
-}
+};
+
+export default Loader;

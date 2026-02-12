@@ -15,7 +15,7 @@ const skills = [
   { name: "Figma", level: "Advanced", angle: 3, x: 2, y: 1 },
   { name: "GSAP", level: "Advanced", angle: -4, x: 0, y: 2 },
   { name: "Python", level: "Intermediate", angle: 1, x: 1, y: 2 },
-  { name: "Git", level: "Expert", angle: -2, x: 2, y: 2 }, 
+  { name: "Git", level: "Expert", angle: -2, x: 2, y: 2 },
 ];
 
 const badges = [
@@ -24,7 +24,7 @@ const badges = [
   { text: "HANDCRAFTED", angle: 8, top: "45%", right: "2%" },
 ];
 
-export default function Skills() {
+const Skills = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -97,4 +97,6 @@ export default function Skills() {
       </div>
     </section>
   );
-}
+};
+
+export default Skills;

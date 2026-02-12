@@ -53,7 +53,7 @@ const projects = [
   },
 ];
 
-export default function Work() {
+const Work = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
 
@@ -282,4 +282,6 @@ export default function Work() {
       </div>
     </section>
   );
-}
+};
+
+export default Work;

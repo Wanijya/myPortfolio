@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function App() {
+const App = () => {
   const [loading, setLoading] = useState(true);
 
   const handleLoaderComplete = useCallback(() => {
@@ -47,4 +47,6 @@ export default function App() {
       <Footer />
     </>
   );
-}
+};
+
+export default App;

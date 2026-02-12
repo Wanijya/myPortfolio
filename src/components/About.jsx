@@ -5,7 +5,7 @@ import "./About.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function About() {
+const About = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -91,4 +91,6 @@ export default function About() {
       </div>
     </section>
   );
-}
+};
+
+export default About;

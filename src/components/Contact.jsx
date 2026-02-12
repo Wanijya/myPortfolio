@@ -5,7 +5,7 @@ import "./Contact.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Contact() {
+const Contact = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -146,4 +146,6 @@ export default function Contact() {
       </div>
     </section>
   );
-}
+};
+
+export default Contact;

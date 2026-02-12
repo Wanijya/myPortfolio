@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "./Hero.css";
 
-export default function Hero() {
+const Hero = () => {
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
   const subRef = useRef(null);
@@ -73,4 +73,6 @@ export default function Hero() {
       <div className="hero__circle" />
     </section>
   );
-}
+};
+
+export default Hero;

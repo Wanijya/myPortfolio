@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 const navLinks = ["Home", "About", "Work", "Skills", "Contact"];
 
-export default function Navbar() {
+const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const scrollTo = (id) => {
@@ -89,4 +89,6 @@ export default function Navbar() {
       </AnimatePresence>
     </nav>
   );
-}
+};
+
+export default Navbar;
