@@ -1,472 +1,549 @@
 /* ═══════════════════════════════════════════
-   Skills Section — Vinyl Record Collection 
+   Skills Section — 3D Rotating Ring Carousel
    ═══════════════════════════════════════════ */
 
 .skills {
-    background: var(--clr-cream);
+    background: var(--clr-charcoal);
     overflow: hidden;
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Subtle background grid lines */
+.skills::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(245, 240, 225, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 225, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+/* Corner registration marks */
+.skills__corner {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    color: rgba(212, 132, 42, 0.15);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.skills__corner--tl {
+    top: 1.5rem;
+    left: 1.5rem;
+}
+
+.skills__corner--tr {
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.skills__corner--bl {
+    bottom: 1.5rem;
+    left: 1.5rem;
+}
+
+.skills__corner--br {
+    bottom: 1.5rem;
+    right: 1.5rem;
 }
 
 /* ── Section Header ── */
 .skills__header {
-    margin-bottom: 1.5rem;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .skills__label {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--clr-orange);
 }
 
 .skills__title {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    color: var(--clr-charcoal);
-    margin-top: 0.5rem;
-}
-
-/* ── "Now Playing" Ticker Bar ── */
-.skills__now-playing {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--clr-charcoal);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     color: var(--clr-cream);
-    border: 2px solid var(--clr-charcoal);
-    padding: 0.6rem 1.2rem;
-    margin-bottom: 2.5rem;
-    max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 4px 4px 0 rgba(26, 26, 26, 0.3);
+    margin-top: 0.4rem;
+    position: relative;
+    display: inline-block;
 }
 
-.skills__np-indicator {
-    width: 8px;
-    height: 8px;
-    background: var(--clr-orange);
-    border-radius: 50%;
-    flex-shrink: 0;
-    animation: blink 1.4s ease-in-out infinite;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.2;
-    }
-}
-
-.skills__np-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+.skills__title::after {
+    content: '✦';
+    font-size: 0.5em;
     color: var(--clr-orange);
-    flex-shrink: 0;
+    margin-left: 0.3em;
+    vertical-align: super;
 }
 
-.skills__np-divider {
-    width: 1px;
-    height: 14px;
-    background: rgba(245, 240, 225, 0.2);
-    flex-shrink: 0;
-}
-
-.skills__np-track {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 1.2em;
-    transition: opacity 0.3s ease;
-}
-
-.skills__np-category {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    color: var(--clr-dusty);
-    margin-left: auto;
-    flex-shrink: 0;
-    text-transform: uppercase;
-}
-
-/* ── Category Tape Tabs ── */
-.skills__categories {
-    display: flex;
-    justify-content: center;
-    gap: 0.6rem;
-    margin-bottom: 2.5rem;
-    flex-wrap: wrap;
-}
-
-.skills__cat-tab {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.35rem 1rem;
-    background: transparent;
-    border: 1.5px solid var(--clr-charcoal);
-    color: var(--clr-charcoal);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    transform: rotate(var(--tab-rotate, 0deg));
-    box-shadow: 2px 2px 0 rgba(26, 26, 26, 0.15);
-}
-
-.skills__cat-tab:hover,
-.skills__cat-tab--active {
-    background: var(--clr-charcoal);
-    color: var(--clr-orange);
-    box-shadow: 3px 3px 0 var(--clr-orange);
-    transform: rotate(0deg) translate(-1px, -1px);
-}
-
-/* ── Vinyl Grid ── */
-.skills__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.8rem;
-    max-width: 800px;
+/* ── 3D Scene ── */
+.skills__scene {
+    width: 100%;
+    max-width: 900px;
+    height: 420px;
     margin: 0 auto;
     perspective: 1200px;
+    perspective-origin: 50% 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ── Vinyl Card (3D flip container) ── */
-.skills__vinyl {
-    aspect-ratio: 1;
-    cursor: pointer;
-    transform: rotate(var(--rotate, 0deg));
-    transition: transform 0.4s ease;
-}
-
-.skills__vinyl:hover {
-    transform: rotate(0deg) scale(1.03);
-    z-index: 10;
-}
-
-.skills__vinyl-flipper {
-    width: 100%;
-    height: 100%;
+/* ── Rotating Ring ── */
+.skills__ring {
+    width: 160px;
+    height: 200px;
     transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: orbit 25s linear infinite;
+    position: relative;
 }
 
-.skills__vinyl:hover .skills__vinyl-flipper {
-    transform: rotateY(180deg);
+.skills__ring:hover {
+    animation-play-state: paused;
 }
 
-/* ── Sleeve (Front Face) ── */
-.skills__sleeve {
+@keyframes orbit {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* ── Skill Card ── */
+.skills__card {
+    position: absolute;
+    width: 160px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    transform: rotateY(calc(var(--i) * 40deg)) translateZ(320px);
     backface-visibility: hidden;
-    display: grid;
-    grid-template-areas: "sleeve";
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.skills__card-inner {
     width: 100%;
     height: 100%;
-    background: var(--sleeve-color, var(--clr-warm-white));
+    background: var(--clr-cream);
     border: 2px solid var(--clr-charcoal);
-    box-shadow: 5px 5px 0 rgba(26, 26, 26, 0.2);
-    overflow: hidden;
-}
-
-.skills__sleeve>* {
-    grid-area: sleeve;
-}
-
-.skills__sleeve-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.2rem;
-    z-index: 2;
-    height: 100%;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        4px 4px 0 rgba(212, 132, 42, 0.2),
+        0 0 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.35s ease;
+    cursor: pointer;
 }
 
-.skills__sleeve-top {
+.skills__card:hover .skills__card-inner {
+    background: var(--clr-charcoal);
+    border-color: var(--clr-orange);
+    box-shadow:
+        0 0 20px rgba(212, 132, 42, 0.25),
+        0 0 60px rgba(212, 132, 42, 0.1),
+        6px 6px 0 var(--clr-orange);
+    transform: scale(1.08);
+}
+
+/* Dashed inner border */
+.skills__card-inner::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px dashed rgba(26, 26, 26, 0.15);
+    pointer-events: none;
+    transition: border-color 0.35s;
+}
+
+.skills__card:hover .skills__card-inner::before {
+    border-color: rgba(212, 132, 42, 0.2);
+}
+
+/* Accent line at bottom of card */
+.skills__card-inner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--clr-orange));
+    opacity: 0.7;
+    transition: opacity 0.35s;
+}
+
+.skills__card:hover .skills__card-inner::after {
+    opacity: 1;
+}
+
+/* Card top row */
+.skills__card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.skills__sleeve-num {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
+.skills__card-num {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
     letter-spacing: 0.1em;
     color: var(--clr-charcoal);
+    opacity: 0.35;
+    transition: color 0.35s;
+}
+
+.skills__card:hover .skills__card-num {
+    color: var(--clr-cream);
     opacity: 0.4;
 }
 
-.skills__sleeve-icon {
-    font-size: 1.6rem;
+.skills__card-icon {
+    font-size: 1.3rem;
     line-height: 1;
+    color: var(--card-accent, var(--clr-orange));
+    transition: transform 0.35s, color 0.35s;
+    display: flex;
+    align-items: center;
 }
 
-.skills__sleeve-body {
+.skills__card-icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.skills__card:hover .skills__card-icon {
+    transform: scale(1.2) rotate(-8deg);
+}
+
+/* Card center */
+.skills__card-body {
     text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.skills__sleeve-name {
+.skills__card-name {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: 1.35rem;
     color: var(--clr-charcoal);
-    letter-spacing: 0.06em;
-    line-height: 1;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    transition: color 0.35s;
 }
 
-.skills__sleeve-level {
+.skills__card:hover .skills__card-name {
+    color: var(--clr-orange);
+}
+
+.skills__card-level {
     font-family: var(--font-mono);
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--clr-charcoal-light);
-    margin-top: 0.4rem;
+    margin-top: 0.35rem;
     display: block;
+    transition: color 0.35s;
 }
 
-.skills__sleeve-bottom {
+.skills__card:hover .skills__card-level {
+    color: var(--clr-cream);
+    opacity: 0.6;
+}
+
+/* Card bottom */
+.skills__card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
 
-.skills__sleeve-cat {
+.skills__card-cat {
     font-family: var(--font-mono);
-    font-size: 0.5rem;
+    font-size: 0.45rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--clr-orange);
+    transition: color 0.35s;
 }
 
-.skills__sleeve-year {
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
+.skills__card:hover .skills__card-cat {
+    color: var(--clr-orange-light);
+}
+
+.skills__card-stamp {
+    font-family: var(--font-heading);
+    font-size: 0.4rem;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--clr-charcoal);
-    opacity: 0.3;
+    opacity: 0.2;
+    border: 1px solid currentColor;
+    padding: 1px 4px;
+    transition: color 0.35s;
 }
 
-/* Dashed inner border on sleeve */
-.skills__sleeve-border {
-    border: 1px dashed rgba(26, 26, 26, 0.15);
-    margin: 6px;
-    pointer-events: none;
-    z-index: 1;
+.skills__card:hover .skills__card-stamp {
+    color: var(--clr-cream);
+    opacity: 0.15;
 }
 
-/* Wear line accent */
-.skills__sleeve-wear {
-    align-self: end;
-    height: 3px;
-    background: var(--clr-orange);
-    opacity: 0.6;
-    z-index: 3;
-}
-
-/* ── Vinyl Disc (Back Face) ── */
-.skills__disc {
-    backface-visibility: hidden;
-    transform: rotateY(180deg);
-    display: grid;
-    place-items: center;
-    width: 100%;
-    height: 100%;
-    background: var(--clr-charcoal);
-    border: 2px solid var(--clr-charcoal);
-    box-shadow: 5px 5px 0 rgba(26, 26, 26, 0.2);
+/* ── Center Hub ── */
+.skills__hub {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 5;
+    pointer-events: none;
 }
 
-.skills__disc-inner {
-    width: 80%;
-    height: 80%;
+.skills__hub-ring {
+    width: 110px;
+    height: 110px;
+    border: 2px dashed rgba(212, 132, 42, 0.25);
     border-radius: 50%;
-    background:
-        radial-gradient(circle, var(--clr-charcoal) 18%, transparent 18.5%),
-        radial-gradient(circle, var(--clr-orange) 19%, transparent 19.5%),
-        radial-gradient(circle, var(--clr-charcoal) 20%, transparent 20.5%),
-        repeating-radial-gradient(circle,
-            transparent 22%,
-            rgba(245, 240, 225, 0.04) 22.5%,
-            transparent 23%),
-        radial-gradient(circle, #222 0%, #111 60%, #1a1a1a 100%);
-    animation: none;
     display: grid;
     place-items: center;
+    animation: hub-spin 12s linear infinite reverse;
     position: relative;
 }
 
-.skills__vinyl:hover .skills__disc-inner {
-    animation: spin 3s linear infinite;
+.skills__hub-ring::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 132, 42, 0.12);
+    border-radius: 50%;
 }
 
-@keyframes spin {
+@keyframes hub-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Center label on the vinyl */
-.skills__disc-label {
-    width: 36%;
-    height: 36%;
+.skills__hub-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--clr-orange);
     border-radius: 50%;
-    background: var(--disc-label, var(--clr-orange));
-    display: grid;
-    place-items: center;
-    text-align: center;
-    border: 2px solid rgba(26, 26, 26, 0.3);
+    box-shadow: 0 0 15px rgba(212, 132, 42, 0.5);
+    animation: hub-pulse 2s ease-in-out infinite;
 }
 
-.skills__disc-name {
-    font-family: var(--font-heading);
-    font-size: clamp(0.65rem, 1.5vw, 0.9rem);
-    color: var(--clr-charcoal);
-    letter-spacing: 0.06em;
-    line-height: 1.1;
+@keyframes hub-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(212, 132, 42, 0.5);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(212, 132, 42, 0.8);
+        transform: scale(1.15);
+    }
 }
 
-.skills__disc-level {
+.skills__hub-label {
     font-family: var(--font-mono);
-    font-size: 0.4rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--clr-charcoal);
-    opacity: 0.7;
-    margin-top: 2px;
-}
-
-/* Spindle hole */
-.skills__disc-inner::after {
-    content: '';
-    position: absolute;
-    width: 6%;
-    height: 6%;
-    border-radius: 50%;
-    background: var(--clr-charcoal);
-    border: 1px solid rgba(245, 240, 225, 0.1);
-}
-
-/* ── Decorative Crate Edges ── */
-.skills__crate-label {
-    text-align: center;
-    margin-top: 2rem;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--clr-charcoal);
-    opacity: 0.3;
+    color: var(--clr-orange);
+    opacity: 0.5;
+    margin-top: 0.6rem;
+}
+
+/* ── Bottom Info Strip ── */
+.skills__strip {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
-.skills__crate-line {
+.skills__strip-line {
     width: 40px;
     height: 1px;
-    background: var(--clr-charcoal);
-    opacity: 0.3;
+    background: rgba(245, 240, 225, 0.15);
 }
 
-/* ── Floating Badges ── */
-.skills__badge {
-    position: absolute;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
+.skills__strip-text {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clr-cream);
+    opacity: 0.25;
+}
+
+/* ── Interaction hint ── */
+.skills__hint {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    padding: 0.3rem 0.8rem;
-    border: 2px solid var(--clr-orange);
-    color: var(--clr-orange);
-    opacity: 0.35;
-    z-index: 1;
+    color: var(--clr-cream);
+    opacity: 0.2;
+    animation: hint-fade 3s ease-in-out infinite;
 }
 
-/* ── Responsive ── */
+@keyframes hint-fade {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+}
+
+/* ── Ambient glow circles ── */
+.skills__glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.08;
+}
+
+.skills__glow--1 {
+    width: 300px;
+    height: 300px;
+    background: var(--clr-orange);
+    top: 10%;
+    left: -5%;
+}
+
+.skills__glow--2 {
+    width: 250px;
+    height: 250px;
+    background: var(--clr-dusty);
+    bottom: 10%;
+    right: -3%;
+}
+
+/* ═══════════════════════════════
+   Responsive
+   ═══════════════════════════════ */
+
 @media (max-width: 768px) {
-    .skills__grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
-        max-width: 440px;
+    .skills {
+        min-height: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
     }
 
-    .skills__vinyl {
-        transform: rotate(0deg) !important;
+    .skills__scene {
+        height: 320px;
+        perspective: 900px;
     }
 
-    /* Disable flip on touch devices, show sleeve only */
-    .skills__vinyl:hover .skills__vinyl-flipper {
-        transform: none;
+    .skills__ring {
+        width: 120px;
+        height: 155px;
     }
 
-    .skills__vinyl:active .skills__vinyl-flipper {
-        transform: rotateY(180deg);
+    .skills__card {
+        width: 120px;
+        height: 155px;
+        transform: rotateY(calc(var(--i) * 40deg)) translateZ(220px);
     }
 
-    .skills__badge {
+    .skills__card-inner {
+        padding: 0.7rem;
+    }
+
+    .skills__card-name {
+        font-size: 1rem;
+    }
+
+    .skills__card-icon {
+        font-size: 1rem;
+    }
+
+    .skills__hub-ring {
+        width: 80px;
+        height: 80px;
+    }
+
+    .skills__corner {
         display: none;
-    }
-
-    .skills__now-playing {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .skills__sleeve-content {
-        padding: 0.9rem;
-    }
-
-    .skills__categories {
-        gap: 0.4rem;
-    }
-
-    .skills__cat-tab {
-        font-size: 0.55rem;
-        padding: 0.25rem 0.7rem;
     }
 }
 
 @media (max-width: 480px) {
-    .skills__grid {
-        gap: 0.9rem;
-        max-width: 320px;
+    .skills__scene {
+        height: 280px;
+        perspective: 750px;
     }
 
-    .skills__sleeve-content {
-        padding: 0.7rem;
+    .skills__ring {
+        width: 100px;
+        height: 135px;
     }
 
-    .skills__sleeve-name {
-        font-size: 1.1rem;
+    .skills__card {
+        width: 100px;
+        height: 135px;
+        transform: rotateY(calc(var(--i) * 40deg)) translateZ(170px);
     }
 
-    .skills__sleeve-icon {
-        font-size: 1.2rem;
+    .skills__card-inner {
+        padding: 0.5rem;
+        box-shadow:
+            3px 3px 0 rgba(212, 132, 42, 0.2),
+            0 0 20px rgba(0, 0, 0, 0.3);
     }
 
-    .skills__now-playing {
-        flex-wrap: wrap;
-        gap: 0.4rem;
-        padding: 0.5rem 0.8rem;
+    .skills__card-name {
+        font-size: 0.85rem;
     }
 
-    .skills__np-category {
+    .skills__card-level {
+        font-size: 0.4rem;
+    }
+
+    .skills__card-num,
+    .skills__card-stamp {
         display: none;
+    }
+
+    .skills__hub-ring {
+        width: 60px;
+        height: 60px;
+    }
+
+    .skills__hub-label {
+        font-size: 0.4rem;
+    }
+
+    .skills__title {
+        font-size: 2rem;
     }
 }
