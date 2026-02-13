@@ -2,56 +2,10 @@ import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { projects } from "../data/projects";
 import "./Work.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const projects = [
-  {
-    id: 1,
-    title: "Brand Identity System",
-    category: "Branding / Design",
-    description:
-      "Complete visual identity redesign for a heritage craft studio, blending traditional motifs with contemporary design language.",
-    year: "2024",
-    color: "#d4842a",
-    tags: ["Illustrator", "Photoshop", "Branding"],
-    role: "Lead Designer",
-  },
-  {
-    id: 2,
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    description:
-      "Full-stack marketplace application with real-time inventory, payment integration, and a curated vintage-inspired UI.",
-    year: "2024",
-    color: "#6b4226",
-    tags: ["React", "Node.js", "MongoDB"],
-    role: "Full-Stack Dev",
-  },
-  {
-    id: 3,
-    title: "Portfolio Microsite",
-    category: "UI / UX Design",
-    description:
-      "Interactive single-page portfolio with scroll-driven animations, grunge textures, and retro typography.",
-    year: "2023",
-    color: "#2e2e2e",
-    tags: ["Figma", "GSAP", "React"],
-    role: "Designer & Developer",
-  },
-  {
-    id: 4,
-    title: "Dashboard Analytics",
-    category: "Web Application",
-    description:
-      "Data visualization dashboard with custom chart components, dark mode, and real-time metric tracking.",
-    year: "2023",
-    color: "#c4a97d",
-    tags: ["D3.js", "TypeScript", "PostgreSQL"],
-    role: "Frontend Lead",
-  },
-];
 
 const Work = () => {
   const sectionRef = useRef(null);
@@ -168,11 +122,6 @@ const Work = () => {
 
   return (
     <section id="work" className="work" ref={sectionRef}>
-      {/* Decorative background elements */}
-      <div className="work__bg-grid" />
-      <div className="work__bg-circle work__bg-circle--1" />
-      <div className="work__bg-circle work__bg-circle--2" />
-
       <div className="container section-padding">
         <div className="work__header">
           <div className="work__header-top">
@@ -252,22 +201,7 @@ const Work = () => {
                   <div className="work__card-preview-frame" />
                 </div>
               </div>
-
-              {/* Grunge corner marks */}
-              <span className="work__corner work__corner--tl">┌</span>
-              <span className="work__corner work__corner--tr">┐</span>
-              <span className="work__corner work__corner--bl">└</span>
-              <span className="work__corner work__corner--br">┘</span>
-
-              {/* Decorative tape */}
-              <div className="work__card-tape" />
             </div>
-
-            {/* Card edge stripe */}
-            <div
-              className="work__card-stripe"
-              style={{ background: project.color }}
-            />
           </motion.div>
         ))}
       </div>

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import LazySection from "./components/LazySection";
 import About from "./components/About";
 import Work from "./components/Work";
 import Skills from "./components/Skills";
@@ -22,10 +23,11 @@ const App = () => {
   useEffect(() => {
     if (loading) return;
 
-    // Refresh ScrollTrigger after loader finishes and content mounts
+    // Refresh ScrollTrigger after loader finishes and content mounts.
+    // Slightly longer delay to account for lazy-loaded sections.
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 500);
+    }, 800);
 
     return () => {
       clearTimeout(timer);
@@ -39,10 +41,18 @@ const App = () => {
       <Navbar />
       <main>
         <Hero />
-        <About />
-        <Work />
-        <Skills />
-        <Contact />
+        <LazySection>
+          <About />
+        </LazySection>
+        <LazySection>
+          <Work />
+        </LazySection>
+        <LazySection>
+          <Skills />
+        </LazySection>
+        <LazySection>
+          <Contact />
+        </LazySection>
       </main>
       <Footer />
     </>

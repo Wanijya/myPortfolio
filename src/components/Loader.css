@@ -6,8 +6,14 @@
     z-index: 9999;
     background: var(--clr-charcoal);
     display: grid;
+    grid-template-areas: "main";
     place-items: center;
     overflow: hidden;
+}
+
+/* All children stack in the same grid cell */
+.loader>* {
+    grid-area: main;
 }
 
 /* Grid wrapper to stack children */
@@ -68,9 +74,8 @@
     color: rgba(245, 240, 225, 0.25);
 }
 
-/* Decorative corner marks */
+/* Decorative corner marks — grid-stacked */
 .loader__corner {
-    position: absolute;
     width: 30px;
     height: 30px;
     border-color: var(--clr-orange-faded);
@@ -79,32 +84,35 @@
 }
 
 .loader__corner--tl {
-    top: 2rem;
-    left: 2rem;
+    align-self: start;
+    justify-self: start;
+    margin: 2rem;
     border-width: 2px 0 0 2px;
 }
 
 .loader__corner--tr {
-    top: 2rem;
-    right: 2rem;
+    align-self: start;
+    justify-self: end;
+    margin: 2rem;
     border-width: 2px 2px 0 0;
 }
 
 .loader__corner--bl {
-    bottom: 2rem;
-    left: 2rem;
+    align-self: end;
+    justify-self: start;
+    margin: 2rem;
     border-width: 0 0 2px 2px;
 }
 
 .loader__corner--br {
-    bottom: 2rem;
-    right: 2rem;
+    align-self: end;
+    justify-self: end;
+    margin: 2rem;
     border-width: 0 2px 2px 0;
 }
 
-/* Background decorative ring */
+/* Background decorative rings — grid-stacked */
 .loader__ring {
-    position: absolute;
     width: 400px;
     height: 400px;
     border: 1px solid rgba(212, 132, 42, 0.06);

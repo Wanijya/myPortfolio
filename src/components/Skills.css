@@ -5,27 +5,19 @@
 .skills {
     background: var(--clr-charcoal);
     overflow: hidden;
-    position: relative;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-areas: "content";
+    place-items: center;
 }
 
-/* Subtle background grid lines */
-.skills::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(245, 240, 225, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245, 240, 225, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
+/* All children stack in the same grid cell */
+.skills>* {
+    grid-area: content;
 }
 
-/* Corner registration marks */
+/* Corner registration marks — grid-stacked */
 .skills__corner {
-    position: absolute;
     font-family: var(--font-mono);
     font-size: 1.2rem;
     color: rgba(212, 132, 42, 0.15);
@@ -34,23 +26,27 @@
 }
 
 .skills__corner--tl {
-    top: 1.5rem;
-    left: 1.5rem;
+    align-self: start;
+    justify-self: start;
+    margin: 1.5rem;
 }
 
 .skills__corner--tr {
-    top: 1.5rem;
-    right: 1.5rem;
+    align-self: start;
+    justify-self: end;
+    margin: 1.5rem;
 }
 
 .skills__corner--bl {
-    bottom: 1.5rem;
-    left: 1.5rem;
+    align-self: end;
+    justify-self: start;
+    margin: 1.5rem;
 }
 
 .skills__corner--br {
-    bottom: 1.5rem;
-    right: 1.5rem;
+    align-self: end;
+    justify-self: end;
+    margin: 1.5rem;
 }
 
 /* ── Section Header ── */
@@ -91,10 +87,13 @@
     margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-areas: "scene";
+    place-items: center;
+}
+
+.skills__scene>* {
+    grid-area: scene;
 }
 
 /* ── Rotating Ring ── */
@@ -103,7 +102,7 @@
     height: 200px;
     transform-style: preserve-3d;
     animation: orbit 25s linear infinite;
-    position: relative;
+    will-change: transform;
 }
 
 .skills__ring:hover {
@@ -125,8 +124,7 @@
     position: absolute;
     width: 160px;
     height: 200px;
-    top: 0;
-    left: 0;
+    inset: 0;
     transform: rotateY(calc(var(--i) * 40deg)) translateZ(320px);
     backface-visibility: hidden;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -137,15 +135,12 @@
     height: 100%;
     background: var(--clr-cream);
     border: 2px solid var(--clr-charcoal);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "top" "body" "bottom";
     padding: 1rem;
-    position: relative;
     overflow: hidden;
-    box-shadow:
-        4px 4px 0 rgba(212, 132, 42, 0.2),
-        0 0 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 0 rgba(212, 132, 42, 0.2);
     transition: all 0.35s ease;
     cursor: pointer;
 }
@@ -153,46 +148,34 @@
 .skills__card:hover .skills__card-inner {
     background: var(--clr-charcoal);
     border-color: var(--clr-orange);
-    box-shadow:
-        0 0 20px rgba(212, 132, 42, 0.25),
-        0 0 60px rgba(212, 132, 42, 0.1),
-        6px 6px 0 var(--clr-orange);
+    box-shadow: 6px 6px 0 var(--clr-orange);
     transform: scale(1.08);
 }
 
-/* Dashed inner border */
-.skills__card-inner::before {
-    content: '';
-    position: absolute;
-    inset: 5px;
-    border: 1px dashed rgba(26, 26, 26, 0.15);
-    pointer-events: none;
-    transition: border-color 0.35s;
+/* Dashed inner border — use outline instead of positioned pseudo-element */
+.skills__card-inner {
+    outline: 1px dashed rgba(26, 26, 26, 0.15);
+    outline-offset: -6px;
+    transition: all 0.35s ease, outline-color 0.35s;
 }
 
-.skills__card:hover .skills__card-inner::before {
-    border-color: rgba(212, 132, 42, 0.2);
+.skills__card:hover .skills__card-inner {
+    outline-color: rgba(212, 132, 42, 0.2);
 }
 
-/* Accent line at bottom of card */
-.skills__card-inner::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--card-accent, var(--clr-orange));
-    opacity: 0.7;
-    transition: opacity 0.35s;
+/* Accent line at bottom of card — use border-bottom instead of pseudo-element */
+.skills__card-inner {
+    border-bottom: 3px solid var(--card-accent, var(--clr-orange));
+    border-bottom-color: color-mix(in srgb, var(--card-accent, var(--clr-orange)) 70%, transparent);
 }
 
-.skills__card:hover .skills__card-inner::after {
-    opacity: 1;
+.skills__card:hover .skills__card-inner {
+    border-bottom-color: var(--card-accent, var(--clr-orange));
 }
 
 /* Card top row */
 .skills__card-top {
+    grid-area: top;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -232,8 +215,8 @@
 
 /* Card center */
 .skills__card-body {
+    grid-area: body;
     text-align: center;
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -270,6 +253,7 @@
 
 /* Card bottom */
 .skills__card-bottom {
+    grid-area: bottom;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -305,12 +289,8 @@
     opacity: 0.15;
 }
 
-/* ── Center Hub ── */
+/* ── Center Hub — grid-stacked with scene ── */
 .skills__hub {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
     z-index: 5;
     pointer-events: none;
@@ -324,15 +304,8 @@
     display: grid;
     place-items: center;
     animation: hub-spin 12s linear infinite reverse;
-    position: relative;
-}
-
-.skills__hub-ring::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(212, 132, 42, 0.12);
-    border-radius: 50%;
+    outline: 1px solid rgba(212, 132, 42, 0.12);
+    outline-offset: -10px;
 }
 
 @keyframes hub-spin {
@@ -374,30 +347,6 @@
     margin-top: 0.6rem;
 }
 
-/* ── Bottom Info Strip ── */
-.skills__strip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.skills__strip-line {
-    width: 40px;
-    height: 1px;
-    background: rgba(245, 240, 225, 0.15);
-}
-
-.skills__strip-text {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--clr-cream);
-    opacity: 0.25;
-}
-
 /* ── Interaction hint ── */
 .skills__hint {
     text-align: center;
@@ -423,30 +372,8 @@
     }
 }
 
-/* ── Ambient glow circles ── */
-.skills__glow {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(80px);
-    opacity: 0.08;
-}
-
-.skills__glow--1 {
-    width: 300px;
-    height: 300px;
-    background: var(--clr-orange);
-    top: 10%;
-    left: -5%;
-}
-
-.skills__glow--2 {
-    width: 250px;
-    height: 250px;
-    background: var(--clr-dusty);
-    bottom: 10%;
-    right: -3%;
-}
+/* Ambient glows — REMOVED for memory optimization.
+   blur() filter creates large GPU compositing layers. */
 
 /* ═══════════════════════════════
    Responsive
@@ -545,5 +472,25 @@
 
     .skills__title {
         font-size: 2rem;
+    }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+    .skills__ring {
+        animation: none;
+    }
+
+    .skills__hub-ring {
+        animation: none;
+    }
+
+    .skills__hub-dot {
+        animation: none;
+    }
+
+    .skills__hint {
+        animation: none;
+        opacity: 0.3;
     }
 }

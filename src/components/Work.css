@@ -7,42 +7,11 @@
     background: var(--clr-charcoal);
     overflow: hidden;
     padding-bottom: 4rem;
+    position: relative;
 }
 
-/* ── Background decorations — grid stacking ── */
-.work__bg-grid {
-    grid-area: 1 / 1 / -1 / -1;
-    background-image:
-        linear-gradient(rgba(212, 132, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 132, 42, 0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-    position: absolute;
-    inset: 0;
-}
-
-.work__bg-circle {
-    border-radius: 50%;
-    border: 1px solid rgba(212, 132, 42, 0.08);
-    pointer-events: none;
-    z-index: 0;
-    position: absolute;
-}
-
-.work__bg-circle--1 {
-    width: 500px;
-    height: 500px;
-    top: -100px;
-    right: -150px;
-}
-
-.work__bg-circle--2 {
-    width: 350px;
-    height: 350px;
-    bottom: 10%;
-    left: -100px;
-}
+/* Background decorations — REMOVED for memory optimization.
+   Large gradient background-images create GPU compositing layers. */
 
 /* ── Header ── */
 .work__header {
@@ -110,7 +79,6 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 2rem 6rem;
-    position: relative;
     z-index: 2;
 }
 
@@ -118,18 +86,14 @@
 .work__card {
     background: var(--clr-cream);
     border: 2px solid var(--clr-charcoal);
+    border-left: 5px solid var(--card-accent, var(--clr-orange));
     margin-bottom: 2.5rem;
-    position: relative;
-    box-shadow:
-        8px 8px 0 rgba(0, 0, 0, 0.25),
-        16px 16px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
     transition: box-shadow 0.3s ease;
 }
 
 .work__card:hover {
-    box-shadow:
-        10px 10px 0 rgba(0, 0, 0, 0.3),
-        20px 20px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 .work__card-inner {
@@ -139,15 +103,7 @@
     min-height: 320px;
 }
 
-/* ── Card left stripe — uses border instead of positioned element ── */
-.work__card-stripe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 5px;
-    height: 100%;
-    z-index: 3;
-}
+/* ── Card left stripe — merged into card border-left, no separate element needed ── */
 
 /* ── Decorative tape — grid overlay ── */
 .work__card-tape {
@@ -300,26 +256,19 @@
     opacity: 0.2;
 }
 
-/* ── Visual preview side ── */
 .work__card-visual {
     grid-area: visual;
     background: var(--clr-beige);
     display: grid;
+    grid-template-areas: "vis";
     place-items: center;
     padding: 2rem;
     border-left: 2px solid var(--clr-charcoal);
     overflow: hidden;
 }
 
-.work__card-visual::before {
-    content: '';
-    grid-area: 1 / 1;
-    background-image:
-        radial-gradient(circle, rgba(26, 26, 26, 0.06) 1px, transparent 1px);
-    background-size: 12px 12px;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
+.work__card-visual>* {
+    grid-area: vis;
 }
 
 .work__card-preview {
@@ -369,27 +318,15 @@
 }
 
 .work__card-preview-frame {
-    border: 1px dashed rgba(26, 26, 26, 0.25);
-    margin: -6px;
+    outline: 1px dashed rgba(26, 26, 26, 0.25);
+    outline-offset: 6px;
     pointer-events: none;
     z-index: 1;
 }
 
-/* ── Corner marks — kept as absolute (4 exact corners) ── */
+/* ── Corner marks — use outline/box-shadow for decorative corners instead of positioned elements ── */
 .work__corner {
-    position: absolute;
-    font-family: var(--font-mono);
-    font-size: 1.4rem;
-    color: var(--clr-charcoal);
-    opacity: 0.1;
-    line-height: 1;
-    z-index: 5;
-    transition: opacity 0.3s;
-}
-
-.work__card:hover .work__corner {
-    opacity: 0.3;
-    color: var(--card-accent, var(--clr-orange));
+    display: none;
 }
 
 .work__corner--tl {
