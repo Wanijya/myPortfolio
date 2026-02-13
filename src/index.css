@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Monoton&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
 
 /* ── Design Tokens ── */
 :root {
@@ -13,7 +13,8 @@
   --clr-brown: #6b4226;
   --clr-dusty: #c4a97d;
 
-  --font-heading: 'Bebas Neue', sans-serif;
+  --font-heading: 'Righteous', sans-serif;
+  --font-display: 'Monoton', cursive;
   --font-body: 'Special Elite', cursive;
   --font-mono: 'Courier Prime', monospace;
 }
